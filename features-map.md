@@ -84,6 +84,8 @@
 | FeatureId      | FeatureName        | FeatureType | Summary                                      | Personas         | Requirements      | SpecFolders                             | Priority | Status      |
 |----------------|--------------------|-------------|----------------------------------------------|------------------|-------------------|------------------------------------------|----------|------------|
 | FEAT-EXAMPLE01 | Example Feature    | CRUD        | مثال لميزة CRUD كاملة (إنشاء/عرض/تعديل/حذف) | Admin, User      | FR-EX-01, FR-EX-02 | 04-domain, 07-api, 08-ui                | P1       | Planned    |
+| FEAT-CV-CREATION | CV Creation | CRUD | إنشاء/تعديل/عرض السيرة الذاتية من بيانات المستخدم وتخزينها لعرضها لاحقاً | User, Visitor | FR-001, FR-003, FR-004, FR-005 | psec-kit-file/FEAT-CV-CREATION | P0 | Planned |
+| FEAT-USER-REGISTRATION | User Registration | Security | تسجيل المستخدمين وتسجيل الدخول لحماية ميزات إنشاء/تعديل السيرة الذاتية | User |  | psec-kit-file/FEAT-USER-REGISTRATION | P0 | Planned |
 
 أضف الصفوف الحقيقية هنا أسفل المثال ↑.
 
@@ -163,3 +165,53 @@
 
 بعد هذا المثال، ابدأ بإضافة سكاشن حقيقية لكل Feature في مشروعك بنفس القالب.
 يمكنك ترتيبها حسب الأولوية أو حسب الدومين (Auth, Users, Search, Reporting, AI, Integration, ...).
+
+### FEAT-CV-CREATION – CV Creation
+**Type:** CRUD  
+**Summary:** تمكين المستخدم من إدخال بياناته (الاسم، الموبايل، الصورة، الخبرات، التعليم) وإنشاء/عرض/تعديل السيرة الذاتية وتخزينها لعرضها والبحث عنها.  
+**Personas:** User, Visitor  
+**Requirements:** FR-001, FR-003, FR-004, FR-005, NFR-001  
+**Spec Folders / Files:**  
+- `psec-kit-file/FEAT-CV-CREATION/clarify.md`
+- `psec-kit-file/FEAT-CV-CREATION/plan.md`
+- `psec-kit-file/FEAT-CV-CREATION/specify.md`
+- `psec-kit-file/FEAT-CV-CREATION/tasks.md`
+
+**Dependencies / Relations:**  
+- تعتمد على: FEAT-USER-REGISTRATION (لإنشاء/تعديل CV كمستخدم مسجّل)  
+- تؤثر على: (لاحقاً) FEAT-SEARCH (إذا تم فصل البحث كميزة مستقلة)
+
+**KPI Template:**  
+- `specifications/12-testing/kpi-crud-template.md`
+
+**Recommended Feature Prompt (Cursor):**  
+- `cursor_prompt_feature-crud.txt`
+
+**Notes / Open Questions:**  
+- ما تعريف "السير الذاتية المتاحة" للزوار؟ وهل يوجد زر نشر/إلغاء نشر؟
+- ما هي "البيانات الحساسة" التي يجب إخفاؤها عند التصدير (هل رقم الموبايل ضمنها)؟
+- صيغة التصدير المطلوبة (PDF/طباعة/رابط) غير محددة.
+
+### FEAT-USER-REGISTRATION – User Registration
+**Type:** Security  
+**Summary:** تسجيل المستخدمين وتسجيل الدخول/الخروج وحماية عمليات إنشاء/تعديل السيرة الذاتية.  
+**Personas:** User  
+**Requirements:**  
+**Spec Folders / Files:**  
+- `psec-kit-file/FEAT-USER-REGISTRATION/clarify.md`
+- `psec-kit-file/FEAT-USER-REGISTRATION/plan.md`
+- `psec-kit-file/FEAT-USER-REGISTRATION/specify.md`
+- `psec-kit-file/FEAT-USER-REGISTRATION/tasks.md`
+
+**Dependencies / Relations:**  
+- تؤثر على: FEAT-CV-CREATION (التحكم في الوصول والتعديل)  
+
+**KPI Template:**  
+- `specifications/12-testing/kpi-security-template.md`
+
+**Recommended Feature Prompt (Cursor):**  
+- `cursor_prompt_feature-security.txt`
+
+**Notes / Open Questions:**  
+- حقول وآلية التسجيل (بريد/هاتف/كلمة مرور/OTP) غير محددة في ملخص المتطلبات.
+- هل نحتاج أدوار/صلاحيات إضافية (Admin)؟
